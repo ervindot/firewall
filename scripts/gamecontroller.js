@@ -18,6 +18,7 @@ export class GameController {
 
   getText() {
     let gameText = this.gamePane.getText();
+    console.log(gameText);
     let hackerText = this.hackerPane.getText();
     console.log(hackerText);
     let outputString = "";
@@ -33,7 +34,7 @@ export class GameController {
 
         if (x > this.hackerPaneCoords[0] && x < this.hackerPaneCoords[2]) {
           if (y > this.hackerPaneCoords[1] && y < this.hackerPaneCoords[3]) {
-            rowString += hackerText[y - this.margin][x - this.width / 2];
+            rowString += hackerText[y - this.margin][x - Math.floor(this.width / 2)];
             continue;
           }
         }
