@@ -11,9 +11,7 @@ export class Game{
       this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 5}
       this.removeSides = 0;
       this.timesincesomething = 0;
-      setTimeout(() => {
-        this.isGameOver = true;
-      }, 2000);
+      this.isGameOver = false; // raise this flag when game is lost
     } 
   
   start(){
