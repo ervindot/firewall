@@ -2,6 +2,7 @@ import {GameController} from './scripts/gamecontroller.js'
 const gc = new GameController(150, 45);
 let time;
 $( document ).ready(function() {
+  gc.start();
   console.log('hello!');
   $('#gamescreen').text(gc.getText());
   time = Date.now();
