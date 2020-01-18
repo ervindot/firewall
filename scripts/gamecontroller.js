@@ -1,5 +1,5 @@
 import {Game} from './game.js';
-import {HackerScreen} from './hackerscreen.js';
+import {HackerText} from './hackerText.js';
 
 export class GameController { 
  
@@ -13,14 +13,13 @@ export class GameController {
     this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
     this.gamePane = new Game(this.gameW, this.height - this.margin);
     this.gamePane.start();
-    this.hackerPane = new HackerScreen(this.hackerW, this.height - this.margin);
-    this.hackerPane.start();
+    this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
+    this.hackerPane.Start();
   }
 
   update(deltaTime) {
-    console.log(deltaTime);
     this.gamePane.update(deltaTime);
-    this.hackerPane.update(deltaTime);
+    this.hackerPane.Update(deltaTime);
   }
 
   getText() {

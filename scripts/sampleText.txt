@@ -1,5 +1,88 @@
 for (let i = 0; i < userFiles.length; i++) {
     hack(userFiles[i]);
 }
-
+~
 userData.forEach(element => console.log(BankPASSWORD));
+~
+Source(){
+    crack(Hash512.TOTP);
+}
+~
+PasswordHasher(pass){
+    Source(virusMasher);
+}
+~
+ConnectHost(){
+    fetch(AvastAntiVirus, process.restart);
+}
+~
+ArraySpace (Vector3 bankCrack){
+    acquire(NigerianCurrency);
+}
+~
+Map<Buyer, List<Transaction>> salesByBuyer
+     = txns.parallelStream()
+        .collect(Collectors.groupingBy(Transaction::getBuyer));
+~
+List<Name,Password> getPwned
+        = UnrealEngineLEAK();
+~
+func HashMyCash = (int X -> {Object y = new Backdoor; return y.hasher(Cash mc)};
+~
+#ALERT(CrashStockMarket);;;
+~
+recycle.Backdoor(Time.now);
+~
+autoHacker.enable('Brute Force').all();
+~
+DDoS_blocker x => x.restart()
+~
+RSA.encrypt('end-to-end').userProtect;
+~
+decryptWannaCry.FBI
+~
+$ sudo ./superExploit.BLOCK
+~
+POST /path/script.cgi HTTP/1.2
+From: virus_smash@avast.edu
+User-Agent: HTTPTool/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 1024
+~
+infosecExam.pass()
+~
+metaData.delete(reason = "lulz");
+~
+eve.interceptBOB(Source alice);
+~
+if(opsec.mastered()==True){
+    return checkMAC(String mac_id) ? pass(mac_id) : block(mac_id);
+}
+~
+SHA-512(password.plaintext).promise
+~
+if(pwnerCheck(email)){
+    alert("YOU HAVE BEEN PWNED")
+} else {
+    alert("safe boi")
+}
+~
+transmission = true;
+console.log("Ransomware Blocked");
+~
+f rcheck(hash1): rainbow(hash1) ? rcheck(newHash()) _ hash1;
+~
+System.warn("Script-kiddie detected")
+~
+./kernel-check
+rm rootkit
+~
+wireshark ciscodump | >dumpInfo.txt
+analyze dumpInfo.txt | list
+purge list
+~
+ghidra da ILOVEYOU
+alert("Hidden Threat")
+~
+r2 CryptoLocker
+shred CryptoLocker
