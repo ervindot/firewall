@@ -1,7 +1,11 @@
 import {GameController} from './scripts/gamecontroller.js'
-
+const gc = new GameController(150, 45);
 $( document ).ready(function() {
   console.log('hello!');
-  const gc = new GameController(window.innerWidth, window.innerHeight, 16);
   $('#gamescreen').text(gc.getText());
 });
+
+setInterval(() => {
+  gc.update();
+  $('#gamescreen').text(gc.getText());
+}, 100)

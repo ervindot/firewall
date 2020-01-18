@@ -3,30 +3,36 @@ import {HackerScreen} from './hackerscreen.js';
 
 export class GameController { 
  
-  constructor(screenWidth, screenHeight, fontSize) {
-    this.width = Math.floor(screenWidth / (fontSize / 1.5));
-    this.height = Math.floor(screenHeight / fontSize / 1.3);
+  constructor() {
     this.margin = 1;
-    this.gamePaneCoords = [this.margin, this.margin, this.width / 2 - this.margin, this.height - this.margin];
-    this.hackerPaneCoords = [this.margin + this.width / 2, this.margin, this.width - this.margin, this.height - this.margin];
+    this.gameW = 69;
+    this.hackerW = 45;
+    this.height = 40;
+    this.width = this.gameW + this.margin*4 + this.hackerW;
+    this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
+    this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
     console.log(this.gamePaneCoords, this.hackerPaneCoords);
-    this.gamePane = new Game(this.width / 2- this.margin, this.height - this.margin);
+    this.gamePane = new Game(this.gameW, this.height - this.margin);
     this.gamePane.start();
-    this.hackerPane = new HackerScreen(this.width / 2- this.margin, this.height - this.margin);
+    this.hackerPane = new HackerScreen(this.hackerW, this.height - this.margin);
     this.hackerPane.start();
+  }
+
+  update() {
+    this.gamePane.update();
+    this.hackerPane.update();
   }
 
   getText() {
     let gameText = this.gamePane.getText();
     console.log(gameText);
     let hackerText = this.hackerPane.getText();
-    console.log(hackerText);
     let outputString = "";
     for (let y = 0; y < this.height; y++) {
       let rowString = "";
       for (let x = 0; x < this.width; x++) {
-        if (x > this.gamePaneCoords[0] && x < this.gamePaneCoords[2]) {
-          if (y > this.gamePaneCoords[1] && y < this.gamePaneCoords[3]) {
+        if (x >= this.gamePaneCoords[0] && x < this.gamePaneCoords[2]) {
+          if (y >= this.gamePaneCoords[1] && y < this.gamePaneCoords[3]) {
             rowString += gameText[y - this.margin][x];
             continue;
           }
