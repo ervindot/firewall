@@ -16,6 +16,9 @@ export class HackerScreen {
     }
   }
 
+  update() {
+    return
+  }
   getText() {
     return this.gamescreen;
   }
