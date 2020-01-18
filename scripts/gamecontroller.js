@@ -18,10 +18,14 @@ export class GameController {
     this.hackerPane.start();
   }
 
+  update() {
+    this.gamePane.update();
+    this.hackerPane.update();
+  }
+
   getText() {
     let gameText = this.gamePane.getText();
     let hackerText = this.hackerPane.getText();
-    console.log(hackerText);
     let outputString = "";
     for (let y = 0; y < this.height; y++) {
       let rowString = "";
