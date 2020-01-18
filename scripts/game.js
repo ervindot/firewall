@@ -7,9 +7,9 @@ export class Game {
   }
 
   start() {
-    for (let i = 0; i < this.height; i++) {
+    for (let i = 0; i <= this.height; i++) {
       let temp = []
-      for (let j = 0; j < this.width; j++) {
+      for (let j = 0; j <= this.width; j++) {
         temp.push('g'.toString());
       }
       this.gamescreen.push(temp);
