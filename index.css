@@ -2,11 +2,16 @@
   width: 100vw;
   height: 100vh;
 }
-html, body {
+body {
   background-color: black;
-  margin: 0;
+  margin: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-body > * {
-
+pre {
   color: green;
+  font-size: 16px;
+  text-align: center;
+  height: auto;
 }
