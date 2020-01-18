@@ -7,9 +7,10 @@ export class Game{
       this.gameHeight = gameHeight;
       this.gameScreen=[];
       this.player = "X";
-      this.stepLength = 5;
+      this.stepLength = 9;
       this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 5}
-  }
+      this.removeSides = 0;
+    } 
   
   start(){
       this.gameScreen = new Array(this.gameHeight)
@@ -18,16 +19,16 @@ export class Game{
       }
       for (var i = 0; i < this.gameHeight; i++) { 
           for (var j = 0; j < this.gameWidth; j++) {
-            if (j % this.stepLength === 0 && (j > this.stepLength * 3 && j < this.gameWidth - this.stepLength*3)) {
+            if (j % this.stepLength === 0 && (j > this.stepLength * this.removeSides && j < this.gameWidth - this.stepLength*this.removeSides)) {
               this.gameScreen[i][j] = "|"; 
-            } else if (i === this.gameHeight - 2 && (j > this.stepLength * 3 && j < this.gameWidth - this.stepLength*3)) {
+            } else if (i === this.gameHeight - 2 && (j > this.stepLength * this.removeSides && j < this.gameWidth - this.stepLength*this.removeSides)) {
                 this.gameScreen[i][j] = "="; 
             } else {
                 this.gameScreen[i][j] = " "; 
             }
           } 
       } 
-      this.gameScreen[this.playerLoc.ycor][this.playerLoc.xcor] = 'X'
+      this.gameScreen[this.playerLoc.ycor][this.playerLoc.xcor] = this.player
       document.addEventListener('keydown',(e) => this.handleKeyPress(e));
   }
       
@@ -51,12 +52,12 @@ export class Game{
    }
    
    changePlayerLoc(x,y,player){
-    if (x < this.stepLength*4 || x > this.gameWidth - this.stepLength*3) {
+    if (x < this.stepLength*(this.removeSides+1) || x > this.gameWidth - this.stepLength*this.removeSides) {
       return;
     }
     let oldX = this.playerLoc.xcor;
     let oldY = this.playerLoc.ycor;
-    if (oldX % this.stepLength === 0 && (oldX > this.stepLength * 3 && oldX < this.gameWidth - this.stepLength*3)) {
+    if (oldX % this.stepLength === 0 && (oldX > this.stepLength * this.removeSides && oldX < this.gameWidth - this.stepLength*this.removeSides)) {
       this.gameScreen[oldY][oldX] = "|"; 
     } else {
       this.gameScreen[oldY][oldX]  = " "; 
