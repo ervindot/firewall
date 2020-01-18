@@ -6,9 +6,9 @@ export class Game{
       this.gameWidth = gameWidth;
       this.gameHeight = gameHeight;
       this.gameScreen=[];
-      this.playerLoc={'xcor':0,'ycor':0}
       this.player = "X";
       this.stepLength = 5;
+      this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 5}
   }
   
   start(){
@@ -18,11 +18,12 @@ export class Game{
       }
       for (var i = 0; i < this.gameHeight; i++) { 
           for (var j = 0; j < this.gameWidth; j++) {
-            if (j % this.stepLength === 0) {
+            if (j % this.stepLength === 0 && (j > this.stepLength * 3 && j < this.gameWidth - this.stepLength*3)) {
               this.gameScreen[i][j] = "|"; 
+            } else if (i === this.gameHeight - 2 && (j > this.stepLength * 3 && j < this.gameWidth - this.stepLength*3)) {
+                this.gameScreen[i][j] = "="; 
             } else {
-              this.gameScreen[i][j] = " "; 
-
+                this.gameScreen[i][j] = " "; 
             }
           } 
       } 
@@ -50,8 +51,16 @@ export class Game{
    }
    
    changePlayerLoc(x,y,player){
-    if (x < 0 || x > this.gameWidth) {
+    if (x < this.stepLength*4 || x > this.gameWidth - this.stepLength*3) {
       return;
+    }
+    let oldX = this.playerLoc.xcor;
+    let oldY = this.playerLoc.ycor;
+    if (oldX % this.stepLength === 0 && (oldX > this.stepLength * 3 && oldX < this.gameWidth - this.stepLength*3)) {
+      this.gameScreen[oldY][oldX] = "|"; 
+    } else {
+      this.gameScreen[oldY][oldX]  = " "; 
+
     }
     this.gameScreen[this.playerLoc.ycor][this.playerLoc.xcor] = '|'
     this.gameScreen[y][x]= player;
