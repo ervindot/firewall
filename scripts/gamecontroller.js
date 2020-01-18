@@ -11,7 +11,6 @@ export class GameController {
     this.width = this.gameW + this.margin*4 + this.hackerW;
     this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
     this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
-    console.log(this.gamePaneCoords, this.hackerPaneCoords);
     this.gamePane = new Game(this.gameW, this.height - this.margin);
     this.gamePane.start();
     this.hackerPane = new HackerScreen(this.hackerW, this.height - this.margin);
@@ -25,7 +24,6 @@ export class GameController {
 
   getText() {
     let gameText = this.gamePane.getText();
-    console.log(gameText);
     let hackerText = this.hackerPane.getText();
     let outputString = "";
     for (let y = 0; y < this.height; y++) {

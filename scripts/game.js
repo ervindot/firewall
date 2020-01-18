@@ -2,11 +2,13 @@
 export class Game{
   //initlialize the dimensions
   constructor(gameWidth,gameHeight){
+    console.log(gameWidth, gameHeight);
       this.gameWidth = gameWidth;
       this.gameHeight = gameHeight;
       this.gameScreen=[];
       this.playerLoc={'xcor':0,'ycor':0}
       this.player = "X";
+      this.stepLength = 5;
   }
   
   start(){
@@ -15,13 +17,16 @@ export class Game{
         this.gameScreen[i] = new Array(this.gameWidth)
       }
       for (var i = 0; i < this.gameHeight; i++) { 
-          for (var j = 0; j < this.gameWidth; j++) { 
-            this.gameScreen[i][j] = "|"; 
+          for (var j = 0; j < this.gameWidth; j++) {
+            if (j % this.stepLength === 0) {
+              this.gameScreen[i][j] = "|"; 
+            } else {
+              this.gameScreen[i][j] = " "; 
+
+            }
           } 
       } 
-      
-      this.changePlayerLoc(Math.floor(this.gameWidth/2),this.gameHeight-1,player)
-      //this.changePlayerLoc(30,10,this.player)
+      this.gameScreen[this.playerLoc.ycor][this.playerLoc.xcor] = 'X'
       document.addEventListener('keydown',(e) => this.handleKeyPress(e));
   }
       
@@ -35,19 +40,21 @@ export class Game{
       console.log('left arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
-      this.changePlayerLoc(y,x-1,this.player)
+      this.changePlayerLoc(x-this.stepLength ,y,this.player)
     } else if (event.keyCode===39){
       console.log('right arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
-      this.changePlayerLoc(y,x+1,this.player)
+      this.changePlayerLoc(x+this.stepLength ,y,this.player)
     }
    }
    
    changePlayerLoc(x,y,player){
-     console.log(x)
-     console.log(y)
-    this.gameScreen[x][y]=player;
+    if (x < 0 || x > this.gameWidth) {
+      return;
+    }
+    this.gameScreen[this.playerLoc.ycor][this.playerLoc.xcor] = '|'
+    this.gameScreen[y][x]= player;
     this.playerLoc={xcor:x,ycor:y}
    }
 
