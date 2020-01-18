@@ -10,6 +10,7 @@ export class Game{
       this.stepLength = 9;
       this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 5}
       this.removeSides = 0;
+      this.timesincesomething = 0;
     } 
   
   start(){
@@ -32,8 +33,8 @@ export class Game{
       document.addEventListener('keydown',(e) => this.handleKeyPress(e));
   }
       
-  update() {
-    return
+  update(deltaTime) {
+    return;
   }
 
    handleKeyPress(event){

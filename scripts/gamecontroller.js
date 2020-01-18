@@ -17,9 +17,10 @@ export class GameController {
     this.hackerPane.start();
   }
 
-  update() {
-    this.gamePane.update();
-    this.hackerPane.update();
+  update(deltaTime) {
+    console.log(deltaTime);
+    this.gamePane.update(deltaTime);
+    this.hackerPane.update(deltaTime);
   }
 
   getText() {
