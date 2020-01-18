@@ -33,14 +33,14 @@ export class GameController {
       for (let x = 0; x < this.width; x++) {
         if (x >= this.gamePaneCoords[0] && x < this.gamePaneCoords[2]) {
           if (y >= this.gamePaneCoords[1] && y < this.gamePaneCoords[3]) {
-            rowString += gameText[y - this.margin][x];
+            rowString += gameText[y - this.margin][x - 1];
             continue;
           }
         }
 
-        if (x > this.hackerPaneCoords[0] && x < this.hackerPaneCoords[2]) {
-          if (y > this.hackerPaneCoords[1] && y < this.hackerPaneCoords[3]) {
-            rowString += hackerText[y - this.margin][x - Math.floor(this.width / 2)];
+        if (x >=this.hackerPaneCoords[0] && x < this.hackerPaneCoords[2]) {
+          if (y >= this.hackerPaneCoords[1] && y < this.hackerPaneCoords[3]) {
+            rowString += hackerText[y - this.margin][x - this.gamePaneCoords[2] - 2];
             continue;
           }
         }
