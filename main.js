@@ -1,4 +1,5 @@
 import {GameController} from './scripts/gamecontroller.js'
+import {AudioManager} from './scripts/AudioManager.js'
 const gc = new GameController(150, 45);
 let time;
 $( document ).ready(function() {
@@ -6,6 +7,8 @@ $( document ).ready(function() {
   console.log('hello!');
   $('#gamescreen').text(gc.getText());
   time = Date.now();
+  const am = new AudioManager();
+  am.playSound('sample')
 });
 
 setInterval(() => {
