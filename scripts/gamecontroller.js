@@ -15,11 +15,63 @@ export class GameController {
     this.gamePane.start();
     this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
     this.hackerPane.Start();
+    this.gameOver = false;
+    this.gameStart = true;
+    const userAgentCheck = navigator.userAgent.match('Avast')
+    if (userAgentCheck) {
+      this.gameOverText = "Thankfully, you were because you were using\n Avast Secure Browser"
+    } else {
+      this.gameOverText = "You could have been saved by Avast Secure Browser.\nIt provide features to stop malware, phishing scams,\n and identity theft. Download it now!\nhttps://www.avast.com/en-gb/secure-browser"
+    }
+    const highscore = window.localStorage.getItem('highscore');
+    if (!highscore) {
+      window.localStorage.setItem('highscore','10');
+      highscore = '10'
+    }
+    this.highscoreText = `System High Score: ${highscore}`
+  }
+
+
+  reset() {
+    this.gamePane.isGameOver = false;
+  }
+  
+  start() {
+    document.addEventListener('keydown', (e) => {
+      if (this.gameOver) {
+        if (e.keyCode === 8) {
+          $("#startmenu").show();
+          this.gameStart = true;
+        } 
+        this.reset()
+        this.gameOverToggle();
+        return;
+      }
+      if (this.gameStart) {
+        $("#startmenu").hide()
+        this.gameStart = false;
+      }
+    });
+    $('#highscore').text(this.highscoreText);
+    $('#gameover').hide();
   }
 
   update(deltaTime) {
     this.gamePane.update(deltaTime);
     this.hackerPane.Update(deltaTime);
+    if (this.gamePane.isGameOver && !this.gameOver) {
+      this.gameOverToggle();
+    }
+  }
+
+  gameOverToggle() {
+    if (!this.gameOver) {
+      $('#gameover').show();
+      $('#gameovertext').text(this.gameOverText);
+    } else {
+      $('#gameover').hide();
+    }
+    this.gameOver = !this.gameOver;
   }
 
   getText() {
