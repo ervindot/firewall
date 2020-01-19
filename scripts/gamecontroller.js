@@ -72,7 +72,7 @@ export class GameController {
         $('#gameover').hide();
     }
 
-    update(deltaTime) {
+    async update(deltaTime) {
         if(!this.gameOver && !this.gameStart){
             this.gamePane.update(deltaTime);
         }

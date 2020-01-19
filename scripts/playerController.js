@@ -139,8 +139,7 @@ export class PlayerController {
                 this.enemies.splice(i, 1);
 
             } else
-            if (this.enemies[i].y > this.gameHeight - 1) {
-                this.enemies.splice(i, 1);
+            if (this.enemies[i].y > this.gameHeight - 3 ) {
                 //if enemy normal boost shield
                 if (this.enemies[i].enemyType !== 2) {
                     this.shield -= shieldDelta;
