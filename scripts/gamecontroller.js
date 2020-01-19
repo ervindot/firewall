@@ -30,12 +30,11 @@ export class GameController {
 
         this.oldScore = this.gamePane.score;
 
+
     }
 
 
     reset() {
-        this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
-        this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
         this.gamePane = new PlayerController(this.gameW, this.height - this.margin);
         this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
 
@@ -69,14 +68,18 @@ export class GameController {
     }
 
     update(deltaTime) {
-        if(!this.gameOver){
+        if(!this.gameOver && !this.gameStart){
             this.gamePane.update(deltaTime);
         }
 
+        if(this.gamePane.score==0 && !this.gameStart){
+            this.hackerPane.showScore(this.gamePane.score);
+        }
+
         console.log(this.gamePane.score);
-        if (this.gamePane.score > this.oldScore) {
-            this.hackerPane.Update(deltaTime, this.gamePane.score);
+        if (this.gamePane.score !== this.oldScore) {
             this.oldScore = this.gamePane.score;
+            this.hackerPane.Update(deltaTime, this.gamePane.score);
         }
 
         if (this.gamePane.isGameOver && !this.gameOver) {
@@ -111,7 +114,7 @@ export class GameController {
             for (let x = 0; x < this.width; x++) {
                 if (x >= this.gamePaneCoords[0] && x < this.gamePaneCoords[2]) {
                     if (y >= this.gamePaneCoords[1] && y < this.gamePaneCoords[3]) {
-                        rowString += gameText[y - this.margin][x - 1];
+                        rowString += (gameText[y - this.margin][x - 1] || " ");
                         continue;
                     }
                 }
@@ -128,9 +131,7 @@ export class GameController {
             outputString += rowString
         }
         return outputString;
-
     }
-
 }
 
 export default GameController;

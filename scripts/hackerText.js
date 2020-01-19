@@ -101,7 +101,55 @@ export class HackerText{
             "alert(\"Hidden Threat\")\n" +
             "~\n" +
             "r2 CryptoLocker\n" +
-            "shred CryptoLocker\n";
+            "shred CryptoLocker\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Avoid suspicious links\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Lock your device with a passcode\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Update your software immediately\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Use unique passwords for EVERY account online\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Use a VPN on open Wi-Fi networks\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Download apps from reputable app stores\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Backup your data to the cloud\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Enable remote wiping of your phone\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Use a security app\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Upgrade your Wi-Fi security\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Use stronger logins with strong passwords\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "~\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\n" +
+            "Use 2-factor authentication\n" +
+            "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\";
 
         this.sampleTextArr = this.sampleText.split("\n~\n");
         this.hackIndex = 0;
@@ -117,7 +165,6 @@ export class HackerText{
                 this.text[i][j] = start2DArr[i][j];
             }
         }
-        this.insertTextFixed(`Score 0`, this.scorePos);
     }
 
     shiftUp(){
@@ -162,7 +209,7 @@ export class HackerText{
         return array;
     }
 
-    Update(){
+    Update(dt ,score){
         //leave new line between old code and new code
         if(this.lineCounter >= this.hackTextHeight) {
             this.shiftUp();
@@ -194,26 +241,24 @@ export class HackerText{
                 this.insertText(hack[i].substring(this.width, hack[i].length))
             }
         }
+        this.showScore(score);
+    }
+
+    showScore(score){
         this.insertTextFixed(`Score ${score}`, this.scorePos);
     }
 
     insertTextFixed(string, line) {
-      //leave new line between old code and new code
-      if (this.lineCounter >= this.hackTextHeight - 1) {
-          this.shiftUp();
-      } else {
-          this.lineCounter++;
-      }
 
-      for (let i = 0; i < Math.min(string.length, this.width); i++) {
-          this.text[Math.min(line, this.paneHeight - 1)][i] = string[i];
-      }
-      for (let i = Math.min(string.length, this.width); i < this.width; i++) {
-          this.text[Math.min(line, this.paneHeight - 1)][i] = " ";
-      }
+        for (let i = 0; i < Math.min(string.length, this.width); i++) {
+            this.text[Math.min(line, this.paneHeight - 1)][i] = string[i];
+        }
+        for (let i = Math.min(string.length, this.width); i < this.width; i++) {
+            this.text[Math.min(line, this.paneHeight - 1)][i] = " ";
+        }
 
 
-  }
+    }
 
     insertText(string) {
         //leave new line between old code and new code

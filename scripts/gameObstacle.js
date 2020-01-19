@@ -5,20 +5,20 @@ export class gameObsctacle {
 
 
         //four obstacle types:
-        //generic : moves straight down
-        //trojan : moves straight down but looks non-malicious for most of the way
-        //non-malicious : user packets (if blocked lose score because inconvenient)
-        //spy-ware : follows player movement
+        //0 generic : moves straight down
+        //1 trojan : moves straight down but looks non-malicious for most of the way
+        //2 non-malicious : user packets (if blocked lose score because inconvenient)
+        //3 spy-ware : follows player movement
         this.enemyType = Math.floor(Math.random() * 4);
 
         this.shapes = [
             [["\\", "~", "/"], ["/", "A", "\\"], ["|", " ", "|"], ["_", "^", "_"]],
             [["\\", "~", "/"], ["/", "B", "\\"], ["|", " ", "|"], ["_", "^", "_"]],
-            this.stringTo2DCharArr(" / \\\n" +
-                " ( )\n" +
-                " (   )\n" +
-                " /|/ \\|\\\n" +
-                " /_|| ||_\\"),
+            this.stringTo2DCharArr(
+                ".--.\n" +
+                "| -- \\\n" +
+                "| -- |\n" +
+                "'----'"),
             [["\\", "~", "/"], ["/", "D", "\\"], ["|", " ", "|"], ["_", "^", "_"]]
         ];
 
@@ -39,14 +39,14 @@ export class gameObsctacle {
             foundY = true;
             for (let i = 0; i < this.enemyList.length; i++) {
                 //this.x === this.enemyList[i].x ||
-                if((Math.abs(this.enemyList[i].y - this.y) <= Math.ceil((this.enemyList[i].shape.length + this.shape.length) / 2))) {
+                if((Math.abs(this.enemyList[i].y - this.y) <= 7)) {
                     foundY = false;
                 }
             }
         }
 
         this.totalTime = 0;
-        this.moveTime = 5000;
+        this.moveTime = 4000;
     }
 
 

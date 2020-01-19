@@ -117,22 +117,28 @@ export class PlayerController {
             let shieldDelta = 10;
 
             if ((Math.abs(this.enemies[i].x - this.playerLoc.xcor) < Math.floor((this.enemies[i].shape[0].length + this.playerShape[0].length) / 2)) && (Math.abs(this.enemies[i].y - this.playerLoc.ycor) < Math.floor((this.enemies[i].shape.length + this.playerShape.length) / 2))) {
-                this.enemies.splice(i, 1);
                 if (this.enemies[i].enemyType !== 2) {
                     this.score += scoreDelta;
+                    console.log("Enemy type: "+this.enemies[i].enemyType);
+                    console.log("SCORE UP");
                 } else {
                     this.score -= scoreDelta;
+                    console.log("Enemy type: "+this.enemies[i].enemyType);
+                    console.log("SCORE DOWN");
                 }
-            }
-            if (this.enemies[i].y > this.gameHeight - 3) {
+                this.enemies.splice(i, 1);
+
+            } else
+            if (this.enemies[i].y > this.gameHeight - 1) {
                 this.enemies.splice(i, 1);
                 //if enemy normal boost shield
                 if (this.enemies[i].enemyType !== 2) {
                     this.shield -= shieldDelta;
                 } else {
-                    this.shield += shieldDelta;
+                    this.shield += Math.floor(shieldDelta / 2);
                 }
-                 this.audioMan.playSound('shieldHit');
+                this.audioMan.playSound('shieldHit');
+                this.enemies.splice(i, 1);
             }
 
         }
@@ -156,11 +162,11 @@ export class PlayerController {
 
         this.drawEmptySpace();
         this.drawTracks();
-        this.checkCollisions();
         this.spawnEnemies();
         this.drawEnemies();
         this.drawPlayer();
         this.drawShield();
+        this.checkCollisions();
 
         if(this.shield <= 0){
             this.isGameOver = true;
