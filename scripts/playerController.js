@@ -23,6 +23,7 @@ export class PlayerController {
         this.score = 0;
         this.shield = gameWidth;
 
+        this.isGameOver = false;
 
         this.audioMan = new AudioManager();
     }
@@ -92,12 +93,16 @@ export class PlayerController {
 
     drawShield() {
         for (let i = 0; i < Math.floor(this.shield / 2); i++) {
-            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) + i] = "=";
-            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) - i] = "=";
+            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) + i] = "#";
+            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) - i] = "#";
         }
         for (let i = 0; i < Math.floor(this.shield / 2); i++) {
-            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) + i] = "^";
-            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) - i] = "^";
+            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) + i] = "#";
+            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) - i] = "#";
+        }
+        for (let i = 0; i < Math.floor(this.shield / 2); i++) {
+            this.gameScreen[this.gameHeight - 4][Math.floor(this.gameWidth / 2) + i] = "_";
+            this.gameScreen[this.gameHeight - 4][Math.floor(this.gameWidth / 2) - i] = "_";
         }
     }
 
@@ -125,7 +130,7 @@ export class PlayerController {
                 if (this.enemies[i].enemyType !== 2) {
                     this.shield -= shieldDelta;
                 } else {
-                    this.shield += shieldDelta / 2;
+                    this.shield += shieldDelta;
                 }
                 // this.audioMan.playSound('shieldHit');
             }
@@ -135,8 +140,12 @@ export class PlayerController {
 
     spawnEnemies() {
         let maxEnemyCount = 5;
-
-        if (this.enemies.length <= maxEnemyCount) {
+        //four obstacle types:
+        //generic : moves straight down
+        //trojan : moves straight down but looks non-malicious for most of the way
+        //non-malicious : user packets (if blocked lose score because inconvenient)
+        //spy-ware : follows player movement
+        if (this.enemies.length < maxEnemyCount) {
             this.enemies.push(new gameObsctacle(this.gameWidth, this.gameHeight, this.enemies));
             //another enemy shape: [[" ", "_", " "], ["/", " ", "\\"], ["\\", " ", "/"], [" ", "^", " "]]
         }
@@ -152,6 +161,10 @@ export class PlayerController {
         this.drawEnemies();
         this.drawPlayer();
         this.drawShield();
+
+        if(this.shield <= 0){
+            this.isGameOver = true;
+        }
     }
 
     updateEnemies(deltaTime) {

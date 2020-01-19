@@ -34,7 +34,15 @@ export class GameController {
 
 
     reset() {
-        this.gamePane.isGameOver = false;
+        this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
+        this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
+        this.gamePane = new PlayerController(this.gameW, this.height - this.margin);
+        this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
+
+
+        this.oldScore = this.gamePane.score;
+
+        this.start();
     }
 
     start() {
@@ -61,7 +69,10 @@ export class GameController {
     }
 
     update(deltaTime) {
-        this.gamePane.update(deltaTime);
+        if(!this.gameOver){
+            this.gamePane.update(deltaTime);
+        }
+
         console.log(this.gamePane.score);
         if (this.gamePane.score > this.oldScore) {
             this.hackerPane.Update(deltaTime);

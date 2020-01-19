@@ -32,13 +32,18 @@ export class gameObsctacle {
         let temp = this.getRandomInt(1, this.stepLength - 1);
         this.x = temp * this.stepLength;
 
-        this.y = this.getRandomInt(-20, 0);
-        for (let i = 0; i < this.enemyList.length; i++) {
-            while(this.x === this.enemyList[i].x && (Math.abs(this.enemyList[i].y - this.y) <= Math.ceil((this.enemyList[i].shape.length + this.shape.length) / 2))) {
-                this.y = this.getRandomInt(-20, 0);
+        let foundY = false;
+
+        while(!foundY){
+            this.y = this.getRandomInt(-20, 0);
+            foundY = true;
+            for (let i = 0; i < this.enemyList.length; i++) {
+                //this.x === this.enemyList[i].x ||
+                if((Math.abs(this.enemyList[i].y - this.y) <= Math.ceil((this.enemyList[i].shape.length + this.shape.length) / 2))) {
+                    foundY = false;
+                }
             }
         }
-
 
         this.totalTime = 0;
         this.moveTime = 5000;
