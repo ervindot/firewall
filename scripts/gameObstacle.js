@@ -41,7 +41,7 @@ export class gameObsctacle {
             foundY = true;
             for (let i = 0; i < this.enemyList.length; i++) {
                 //this.x === this.enemyList[i].x ||
-                if((this.enemyList[i].x === this.x && Math.abs(this.enemyList[i].y - this.y) <= 5)) {
+                if((this.enemyList[i].x === this.x && Math.abs(this.enemyList[i].y - this.y) <= 7)) {
                     console.log("diff: "+ this.enemyList[i].y);
                     foundY = false;
                 }

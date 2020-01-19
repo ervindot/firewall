@@ -53,6 +53,7 @@ export class GameController {
         document.addEventListener('keydown', (e) => {
             if (this.gameOver) {
                 if (e.keyCode === 8) {
+                    $('#highscore').text(this.highscoreText);
                     $("#startmenu").show();
                     $("#enemies").show();
 
@@ -89,6 +90,7 @@ export class GameController {
 
         if (this.gamePane.isGameOver && !this.gameOver) {
             this.gameOverToggle();
+            this.updateHighScore();
             this.audioMan.playSound('gameEnds');
 
         }
@@ -97,7 +99,7 @@ export class GameController {
     updateHighScore() {
       let highscore = window.localStorage.getItem('highscore');
       if (this.gamePane.score > parseInt(highscore, 10)) {
-        alert('New Highscore!')
+        this.highscoreText = `Current High Score: ${this.gamePane.score}`
         window.localStorage.setItem('highscore', this.gamePane.score.toString());
       }
     }
