@@ -35,11 +35,12 @@ export class gameObsctacle {
         let foundY = false;
 
         while(!foundY){
-            this.y = this.getRandomInt(-20, 0);
+            this.y = Math.floor(this.getRandomInt(-20, 0));
             foundY = true;
             for (let i = 0; i < this.enemyList.length; i++) {
                 //this.x === this.enemyList[i].x ||
                 if((Math.abs(this.enemyList[i].y - this.y) <= 7)) {
+                    console.log("diff: "+ this.enemyList[i].y);
                     foundY = false;
                 }
             }
