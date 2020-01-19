@@ -12,9 +12,7 @@ export class GameController {
         this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
         this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
         this.gamePane = new PlayerController(this.gameW, this.height - this.margin);
-        this.gamePane.start();
         this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
-        this.hackerPane.Start();
         this.gameOver = false;
         this.gameStart = true;
         const userAgentCheck = navigator.userAgent.match('Avast');
@@ -30,8 +28,7 @@ export class GameController {
         }
         this.highscoreText = `System High Score: ${highscore}`;
 
-        this.player = new PlayerController(this.gameW, this.height, 2);
-        this.oldScore = this.player.score;
+        this.oldScore = this.gamePane.score;
 
     }
 
@@ -41,7 +38,8 @@ export class GameController {
     }
 
     start() {
-        this.player.start();
+        this.gamePane.start();
+        this.hackerPane.Start();
 
         document.addEventListener('keydown', (e) => {
             if (this.gameOver) {
@@ -64,12 +62,12 @@ export class GameController {
 
     update(deltaTime) {
         this.gamePane.update(deltaTime);
-        this.player.update(deltaTime);
-        console.log(this.player.score);
-        if (this.player.score > this.oldScore) {
+        console.log(this.gamePane.score);
+        if (this.gamePane.score > this.oldScore) {
             this.hackerPane.Update(deltaTime);
-            this.oldScore = this.player.score;
+            this.oldScore = this.gamePane.score;
         }
+
         if (this.gamePane.isGameOver && !this.gameOver) {
             this.gameOverToggle();
         }

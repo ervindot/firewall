@@ -16,4 +16,4 @@ setInterval(() => {
     gc.update(Date.now() - time);
     time = Date.now();
     $('#gamescreen').text(gc.getText());
-}, 1000 / 240);
+}, 1000 / 60);
