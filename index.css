@@ -17,7 +17,34 @@ body {
     font-size: 16px;
     height: auto;
 }
-
+.startscreen {
+  position: absolute;
+  padding: 10px;
+  top: 50%;
+  left: 25%;
+  width: 400px;
+  height: 350px;
+  margin-left: -205px;
+  margin-top: -180px;
+  border: 2px solid lime;
+  background-color: black;
+  color: lime;
+  text-align: center;
+}
+.enemies {
+  position: absolute;
+  padding: 10px;
+  top: 50%;
+  left: 75%;
+  width: 400px;
+  height: 350px;
+  margin-left: -205px;
+  margin-top: -180px;
+  border: 2px solid lime;
+  background-color: black;
+  color: lime;
+  text-align: center;
+}
 .gameover {
     position: absolute;
     padding: 10px;

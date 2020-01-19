@@ -54,6 +54,8 @@ export class GameController {
             if (this.gameOver) {
                 if (e.keyCode === 8) {
                     $("#startmenu").show();
+                    $("#enemies").show();
+
                     this.gameStart = true;
                 }
                 this.reset();
@@ -62,6 +64,7 @@ export class GameController {
             }
             if (this.gameStart) {
                 $("#startmenu").hide();
+                $("#enemies").hide();
                 this.gameStart = false;
             }
         });
