@@ -52,7 +52,9 @@ export class GameController {
 
         document.addEventListener('keydown', (e) => {
             if (this.gameOver) {
+                console.log(e.keyCode)
                 if (e.keyCode === 8) {
+                  console.log()
                     $('#highscore').text(this.highscoreText);
                     $("#startmenu").show();
                     $("#enemies").show();
