@@ -197,7 +197,6 @@ export class HackerText{
         this.insertTextFixed(`Score ${score}`, this.scorePos);
     }
 
-<<<<<<< HEAD
     insertTextFixed(string, line) {
       //leave new line between old code and new code
       if (this.lineCounter >= this.hackTextHeight - 1) {
@@ -217,9 +216,6 @@ export class HackerText{
   }
 
     insertText(string) {
-=======
-    insertText(string){
->>>>>>> 2a0e0e2f3732301c70f4068c5363386a14ce88ff
         //leave new line between old code and new code
         if(this.lineCounter >= this.hackTextHeight - 1) {
             this.shiftUp();
