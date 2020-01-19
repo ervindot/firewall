@@ -132,7 +132,7 @@ export class PlayerController {
                 } else {
                     this.shield += shieldDelta;
                 }
-                // this.audioMan.playSound('shieldHit');
+                 this.audioMan.playSound('shieldHit');
             }
 
         }
@@ -181,14 +181,14 @@ export class PlayerController {
             let y = this.playerLoc['ycor'];
             this.changePlayerLoc(x - this.stepLength, y, this.playerShape);
             this.changePlayerLoc(x - this.stepLength, y, this.player);
-            // this.audioMan.playSound('playerMove');
+            this.audioMan.playSound('playerMove');
         } else if (event.keyCode === 39) {
             console.log('right arrow');
             let x = this.playerLoc['xcor'];
             let y = this.playerLoc['ycor'];
             this.changePlayerLoc(x + this.stepLength, y, this.playerShape);
             this.changePlayerLoc(x + this.stepLength, y, this.player);
-            // this.audioMan.playSound('playerMove');
+            this.audioMan.playSound('playerMove');
         }
     }
 
