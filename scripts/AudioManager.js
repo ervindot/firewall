@@ -3,6 +3,10 @@ export class AudioManager {
     this.player = new AudioContext();
     this.sounds = {
       'sample':'../audio/sample.wav',
+      'gameEnds':'../audio/gameEnds.wav',
+      'gameStart':'../audio/gameStart.wav',
+      'playerMove':'../audio/playerMove.wav',
+      'shieldHit':'../audio/shieldHit.wav',
     }
   }
   playSound(soundName) {
