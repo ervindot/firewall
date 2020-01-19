@@ -56,12 +56,13 @@ export class GameController {
                     $('#highscore').text(this.highscoreText);
                     $("#startmenu").show();
                     $("#enemies").show();
-
                     this.gameStart = true;
+                } else if (e.keyCode === 32) {
+                  this.reset();
+                  this.gameOverToggle();
+                  return;
                 }
-                this.reset();
-                this.gameOverToggle();
-                return;
+        
             }
             if (this.gameStart) {
                 $("#startmenu").hide();
