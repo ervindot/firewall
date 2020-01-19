@@ -121,10 +121,13 @@ export class PlayerController {
                     this.score += scoreDelta;
                     console.log("Enemy type: "+this.enemies[i].enemyType);
                     console.log("SCORE UP");
+                    this.audioMan.playSound('hitEnemy');
+
                 } else {
                     this.score -= scoreDelta;
                     console.log("Enemy type: "+this.enemies[i].enemyType);
                     console.log("SCORE DOWN");
+                    this.audioMan.playSound('hitFriend');
                 }
                 this.enemies.splice(i, 1);
 

@@ -1,5 +1,6 @@
 import {PlayerController} from './playerController.js';
 import {HackerText} from './hackerText.js';
+import {AudioManager} from './AudioManager.js';
 
 export class GameController {
 
@@ -29,6 +30,7 @@ export class GameController {
         this.highscoreText = `System High Score: ${highscore}`;
 
         this.oldScore = this.gamePane.score;
+        this.audioMan = new AudioManager();
 
 
     }
@@ -84,6 +86,8 @@ export class GameController {
 
         if (this.gamePane.isGameOver && !this.gameOver) {
             this.gameOverToggle();
+            this.audioMan.playSound('gameEnds');
+
         }
     }
 

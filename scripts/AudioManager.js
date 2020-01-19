@@ -7,6 +7,8 @@ export class AudioManager {
       'gameStart':'../audio/gameStart.wav',
       'playerMove':'../audio/playerMove.wav',
       'shieldHit':'../audio/shieldHit.wav',
+      'hitEnemy':'../audio/hitEnemy.wav',
+      'hitFriend':'../audio/hitFriend.wav'
     }
   }
   playSound(soundName) {
