@@ -64,13 +64,21 @@ export class GameController {
         this.gamePane.update(deltaTime);
         console.log(this.gamePane.score);
         if (this.gamePane.score > this.oldScore) {
-            this.hackerPane.Update(deltaTime);
+            this.hackerPane.Update(deltaTime, this.gamePane.score);
             this.oldScore = this.gamePane.score;
         }
 
         if (this.gamePane.isGameOver && !this.gameOver) {
             this.gameOverToggle();
         }
+    }
+
+    updateHighScore() {
+      let highscore = window.localStorage.getItem('highscore');
+      if (this.gamePane.score > parseInt(highscore, 10)) {
+        alert('New Highscore!')
+        window.localStorage.setItem('highscore', this.gamePane.score.toString());
+      }
     }
 
     gameOverToggle() {
