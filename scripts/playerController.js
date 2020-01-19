@@ -53,7 +53,14 @@ export class PlayerController {
 
     drawEnemies() {
         for (let k = 0; k < this.enemies.length; k++) {
-            this.drawEntity(this.enemies[k].x, this.enemies[k].y, this.enemies[k].shape);
+            if(this.enemies[k].enemyType !== 3){
+                this.drawEntity(this.enemies[k].x, this.enemies[k].y, this.enemies[k].shape);
+            }
+        }
+        for (let k = 0; k < this.enemies.length; k++) {
+            if(this.enemies[k].enemyType === 3) {
+                this.drawEntity(this.enemies[k].x, this.enemies[k].y, this.enemies[k].shape);
+            }
         }
     }
 
