@@ -10,39 +10,65 @@ export class PlayerController{
       this.gameScreen=[];
 
       //2D array
-      this.player = [[" ","_"," "],["/"," ","\\"],["\\"," ","/"],[" ","^"," "]];
+      this.playerShape = this.stringTo2DCharArr(" / \\\n" +
+          " ( )\n" +
+          " (   )\n" +
+          " /|/ \\|\\\n" +
+          " /_|| ||_\\");
       this.stepLength = 9;
-      this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 5}
+      this.playerLoc={'xcor':this.stepLength*4,'ycor':this.gameHeight - 8}
       this.removeSides = 0;
       this.enemies = new Array();
       this.score = 0;
       this.shield = 3;
-    } 
-  
+    }
+    stringToCharArr(string){
+        return Array.from(string);
+    }
+
+    //!!!!!!! check cuz might not work
+    stringTo2DCharArr(x){
+        console.log(x);
+        return (x.split(/\r?\n/)).map(this.stringToCharArr);
+    }
+
   start(){
-      this.gameScreen = new Array(this.gameHeight)
-      for(var i=0;i<this.gameScreen.length;i++){
-        this.gameScreen[i] = new Array(this.gameWidth)
+      this.gameScreen = new Array(this.gameHeight);
+      for(let i=0;i<this.gameScreen.length;i++){
+        this.gameScreen[i] = new Array(this.gameWidth);
       }
       document.addEventListener('keydown',(e) => this.handleKeyPress(e));
   }
 
   drawPlayer(){
-      let pHeight = this.player.length;
-      let pWidth = this.player[0].length;
-      let pWidthMid = Math.floor(pWidth/2);
-      let pHeightMid = Math.floor(pHeight/2);
+    this.drawEntity(this.playerLoc.xcor,this.playerLoc.ycor,this.playerShape);
+  }
 
-      for (let i = -pHeightMid; i < pHeightMid + pHeight%2; i++) {
-          for (let j = -pWidthMid; j < pWidthMid + pWidth%2; j++) {
-              this.gameScreen[this.playerLoc.ycor + i][this.playerLoc.xcor + j] = this.player[pHeightMid + i][pWidthMid + j];
+    drawEnemies(){
+        for (let k = 0; k < this.enemies.length; k++) {
+            this.drawEntity(this.enemies[k].x,this.enemies[k].y,this.enemies[k].shape);
+        }
+    }
+
+  drawEntity(x,y,shape){
+      let height = shape.length;
+      let heightMid = Math.floor(height/2);
+
+      for (let i = -heightMid; i < heightMid + height%2; i++) {
+          let width = shape[heightMid + i].length;
+          let widthMid = Math.floor(width/2);
+          for (let j = -widthMid; j < widthMid + width%2; j++) {
+              if(shape[heightMid + i][widthMid + j] !== " " &&
+                y+i>=0 && y+i<this.gameHeight && x+j>=0 && x+j<this.gameWidth){
+                  this.gameScreen[y + i][x + j] = shape[heightMid + i][widthMid + j];
+              }
           }
       }
   }
 
   drawTracks(){
-      for (var i = 0; i < this.gameHeight; i++) {
-          for (var j = 0; j < this.gameWidth; j++) {
+      for (let i = 0; i < this.gameHeight; i++) {
+          for (let j = 0; j < this.gameWidth; j++) {
               if (j % this.stepLength === 0 && (j > this.stepLength * this.removeSides && j < this.gameWidth - this.stepLength*this.removeSides)) {
                   this.gameScreen[i][j] = "|";
               }
@@ -50,25 +76,8 @@ export class PlayerController{
       }
   }
 
-  drawEnemies(){
-      for (let k = 0; k < this.enemies.length; k++) {
-          console.log(this.enemies[k].x +" "+ this.enemies[k].y)
-          let eHeight = this.enemies[k].shape.length;
-          let eWidth = this.enemies[k].shape[0].length;
-          let eWidthMid = Math.floor(eWidth/2);
-          let eHeightMid = Math.floor(eHeight/2);
-          for (let i = -eHeightMid; i < eHeightMid + eHeight%2; i++) {
-              for (let j = -eWidthMid; j < eWidthMid + eWidth%2; j++) {
-                  if(this.enemies[k].y + i >= 0 && this.enemies[k].y + i < this.gameHeight && this.enemies[k].x + j >= 0 && this.enemies[k].x + j < this.gameWidth){
-                      this.gameScreen[this.enemies[k].y + i][this.enemies[k].x + j] = this.enemies[k].shape[eHeightMid + i][eWidthMid + j];
-                  }
-              }
-          }
-      }
-  }
-
   drawEmptySpace(){
-      for (let i = 0; i < this.gameHeight; i++) {
+      for (let i = 0; i < this.gameHeight -1 ; i++) {
           for (let j = 0; j < this.gameWidth; j++) {
               this.gameScreen[i][j] = " ";
           }
@@ -83,7 +92,7 @@ export class PlayerController{
 
   checkCollisions(){
       for (let i = 0; i < this.enemies.length; i++) {
-        if((Math.abs(this.enemies[i].x-this.playerLoc.xcor) < (this.enemies[i].shape.length + this.player.length)/2) && (Math.abs(this.enemies[i].y-this.playerLoc.ycor) < (this.enemies[i].shape[0].length + this.player[0].length)/2)){
+        if((Math.abs(this.enemies[i].x-this.playerLoc.xcor) < (this.enemies[i].shape.length + this.playerShape.length)/2) && (Math.abs(this.enemies[i].y-this.playerLoc.ycor) < (this.enemies[i].shape[0].length + this.playerShape[0].length)/2)){
             this.enemies.splice(i,1);
             this.score++;
         }
@@ -122,12 +131,12 @@ export class PlayerController{
       console.log('left arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
-      this.changePlayerLoc(x-this.stepLength ,y,this.player)
+      this.changePlayerLoc(x-this.stepLength ,y,this.playerShape)
     } else if (event.keyCode===39){
       console.log('right arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
-      this.changePlayerLoc(x+this.stepLength ,y,this.player)
+      this.changePlayerLoc(x+this.stepLength ,y,this.playerShape)
     }
    }
    

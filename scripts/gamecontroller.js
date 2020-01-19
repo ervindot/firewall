@@ -30,7 +30,9 @@ export class GameController {
     }
     this.highscoreText = `System High Score: ${highscore}`
 
-    let player = new PlayerController(this.gameW,this.height,2);
+    this.player = new PlayerController(this.gameW,this.height,2);
+    this.oldScore = this.player.score;
+
   }
 
 
@@ -39,6 +41,8 @@ export class GameController {
   }
   
   start() {
+    this.player.start();
+
     document.addEventListener('keydown', (e) => {
       if (this.gameOver) {
         if (e.keyCode === 8) {
@@ -60,7 +64,11 @@ export class GameController {
 
   update(deltaTime) {
     this.gamePane.update(deltaTime);
-    this.hackerPane.Update(deltaTime);
+    this.player.update(deltaTime);
+    if(this.player.score > this.oldScore) {
+      this.hackerPane.Update(deltaTime);
+      this.oldScore = this.player.score;
+    }
     if (this.gamePane.isGameOver && !this.gameOver) {
       this.gameOverToggle();
     }
