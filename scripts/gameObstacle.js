@@ -31,19 +31,18 @@ export class gameObsctacle {
         this.enemyList = enemyList;
 
         this.stepLength = 9;
-        let temp = this.getRandomInt(1, this.stepLength - 1);
-        this.x = temp * this.stepLength;
 
-        let foundY = false;
+        let foundPosition = false;
 
-        while(!foundY){
+        while(!foundPosition){
+            this.x = this.getRandomInt(1, this.stepLength - 1) * this.stepLength;
             this.y = Math.floor(this.getRandomInt(-20, 0));
-            foundY = true;
+            foundPosition = true;
             for (let i = 0; i < this.enemyList.length; i++) {
                 //this.x === this.enemyList[i].x ||
                 if((this.enemyList[i].x === this.x && Math.abs(this.enemyList[i].y - this.y) <= 7)) {
                     console.log("diff: "+ this.enemyList[i].y);
-                    foundY = false;
+                    foundPosition = false;
                 }
             }
         }
