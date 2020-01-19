@@ -17,11 +17,11 @@ export class PlayerController {
             " /|/ \\|\\\n" +
             " /_|| ||_\\");
         this.stepLength = 9;
-        this.playerLoc = {'xcor': this.stepLength * 4, 'ycor': this.gameHeight - 8};
+        this.playerLoc = {'xcor': this.stepLength * 4, 'ycor': this.gameHeight - 10};
         this.removeSides = 0;
         this.enemies = [];
         this.score = 0;
-        this.shield = 3;
+        this.shield = gameWidth;
 
 
         this.audioMan = new AudioManager();
@@ -91,20 +91,42 @@ export class PlayerController {
     }
 
     drawShield() {
-        for (let i = 0; i < this.gameWidth; i++) {
-            this.gameScreen[this.gameHeight - 2][i] = "=";
+        for (let i = 0; i < Math.floor(this.shield / 2); i++) {
+            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) + i] = "=";
+            this.gameScreen[this.gameHeight - 2][Math.floor(this.gameWidth / 2) - i] = "=";
+        }
+        for (let i = 0; i < Math.floor(this.shield / 2); i++) {
+            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) + i] = "^";
+            this.gameScreen[this.gameHeight - 3][Math.floor(this.gameWidth / 2) - i] = "^";
         }
     }
 
     checkCollisions() {
+        //four obstacle types:
+        //generic : moves straight down
+        //trojan : moves straight down but looks non-malicious for most of the way
+        //non-malicious : user packets (if blocked lose score because inconvenient)
+        //spy-ware : follows player movement
         for (let i = 0; i < this.enemies.length; i++) {
-            if ((Math.abs(this.enemies[i].x - this.playerLoc.xcor) < Math.floor((this.enemies[i].shape.length + this.playerShape.length) / 2)) && (Math.abs(this.enemies[i].y - this.playerLoc.ycor) < Math.floor((this.enemies[i].shape[0].length + this.playerShape[0].length) / 2))) {
+            let scoreDelta = 1;
+            let shieldDelta = 10;
+
+            if ((Math.abs(this.enemies[i].x - this.playerLoc.xcor) < Math.floor((this.enemies[i].shape[0].length + this.playerShape[0].length) / 2)) && (Math.abs(this.enemies[i].y - this.playerLoc.ycor) < Math.floor((this.enemies[i].shape.length + this.playerShape.length) / 2))) {
                 this.enemies.splice(i, 1);
-                this.score = this.score + 1;
+                if (this.enemies[i].enemyType !== 2) {
+                    this.score += scoreDelta;
+                } else {
+                    this.score -= scoreDelta;
+                }
             }
             if (this.enemies[i].y > this.gameHeight - 3) {
                 this.enemies.splice(i, 1);
-                this.shield--;
+                //if enemy normal boost shield
+                if (this.enemies[i].enemyType !== 2) {
+                    this.shield -= shieldDelta;
+                } else {
+                    this.shield += shieldDelta / 2;
+                }
                 // this.audioMan.playSound('shieldHit');
             }
 
@@ -112,24 +134,29 @@ export class PlayerController {
     }
 
     spawnEnemies() {
-        if (this.enemies.length < 6) {
-            this.enemies.push(new gameObsctacle(this.gameWidth, this.gameHeight, [["\\", "~", "/"], ["/", "Ö", "\\"], ["|", " ", "|"], ["_", "^", "_"]]));
+        let maxEnemyCount = 5;
+
+        if (this.enemies.length <= maxEnemyCount) {
+            this.enemies.push(new gameObsctacle(this.gameWidth, this.gameHeight, this.enemies));
             //another enemy shape: [[" ", "_", " "], ["/", " ", "\\"], ["\\", " ", "/"], [" ", "^", " "]]
         }
     }
 
     update(deltaTime) {
+        this.updateEnemies(deltaTime);
+
         this.drawEmptySpace();
         this.drawTracks();
-        this.spawnEnemies();
         this.checkCollisions();
+        this.spawnEnemies();
         this.drawEnemies();
         this.drawPlayer();
         this.drawShield();
+    }
 
+    updateEnemies(deltaTime) {
         for (let i = 0; i < this.enemies.length; i++) {
-            this.enemies[i].y = Math.floor(this.enemies[i].totalTime * this.gameHeight / this.enemies[i].moveTime);
-            this.enemies[i].totalTime += deltaTime;
+            this.enemies[i].update(deltaTime, this.playerLoc.xcor);
         }
     }
 

@@ -159,12 +159,12 @@ export class HackerText {
     }
 
     Update() {
-        //leave new line between old code and new code
-        if (this.lineCounter >= this.hackTextHeight) {
-            this.shiftUp();
-        } else {
-            this.lineCounter++;
-        }
+        // //leave new line between old code and new code
+        // if (this.lineCounter >= this.hackTextHeight) {
+        //     this.shiftUp();
+        // } else {
+        //     this.lineCounter++;
+        // }
 
         if (this.hackIndex % this.sampleTextArr.length == 0) {
             this.sampleTextArr = this.shuffle(this.sampleTextArr);
