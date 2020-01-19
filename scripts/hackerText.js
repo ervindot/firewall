@@ -1,12 +1,11 @@
+export class HackerText {
 
-export class HackerText{
-
-    constructor(width,height){
+    constructor(width, height) {
         this.width = width;
         this.hackTextHeight = height - 10;
         this.lineCounter = 0;
         this.text = new Array(this.hackTextHeight);
-        for(let i = 0; i < height; i++){
+        for (let i = 0; i < height; i++) {
             this.text[i] = new Array(width);
             for (let j = 0; j < width; j++) {
                 this.text[i][j] = " ";
@@ -117,24 +116,24 @@ export class HackerText{
         }
     }
 
-    shiftUp(){
+    shiftUp() {
         //shifts all text one line upwards
-        for(let i = 0; i < this.hackTextHeight - 1; i++){
-            for(let j = 0; j < this.width; j++){
-                this.text[i][j] = this.text[i+1][j];
+        for (let i = 0; i < this.hackTextHeight - 1; i++) {
+            for (let j = 0; j < this.width; j++) {
+                this.text[i][j] = this.text[i + 1][j];
             }
         }
-        for(let j = 0; j < this.width; j++){
-            this.text[this.hackTextHeight-1][j] = " ";
+        for (let j = 0; j < this.width; j++) {
+            this.text[this.hackTextHeight - 1][j] = " ";
         }
     }
 
-    stringToCharArr(string){
+    stringToCharArr(string) {
         return Array.from(string);
     }
 
     //!!!!!!! check cuz might not work
-    stringTo2DCharArr(x){
+    stringTo2DCharArr(x) {
         console.log(x);
         return (x.split(/\r?\n/)).map(this.stringToCharArr);
     }
@@ -159,15 +158,15 @@ export class HackerText{
         return array;
     }
 
-    Update(){
+    Update() {
         //leave new line between old code and new code
-        if(this.lineCounter >= this.hackTextHeight) {
+        if (this.lineCounter >= this.hackTextHeight) {
             this.shiftUp();
         } else {
             this.lineCounter++;
         }
 
-        if(this.hackIndex % this.sampleTextArr.length == 0){
+        if (this.hackIndex % this.sampleTextArr.length == 0) {
             this.sampleTextArr = this.shuffle(this.sampleTextArr);
         }
         this.hackIndex++;
@@ -181,9 +180,9 @@ export class HackerText{
             //     this.text[Math.min(this.lineCounter,this.height-1)][j] = hack[i][j];
             // }
 
-            this.insertText(hack[i].substring(0,Math.min(this.width, hack[i].length)));
+            this.insertText(hack[i].substring(0, Math.min(this.width, hack[i].length)));
 
-            if(hack[i].length > this.width){
+            if (hack[i].length > this.width) {
                 // for (let j = 0; j < hack.width - this.width, hack[i].length; j++) {
                 //     this.text[Math.min(this.lineCounter,this.height-1)][j] = hack[i][this.width + j];
                 // }
@@ -193,25 +192,25 @@ export class HackerText{
         }
     }
 
-    insertText(string){
+    insertText(string) {
         //leave new line between old code and new code
-        if(this.lineCounter >= this.hackTextHeight - 1) {
+        if (this.lineCounter >= this.hackTextHeight - 1) {
             this.shiftUp();
         } else {
             this.lineCounter++;
         }
 
-        for (let i = 0; i < Math.min(string.length,this.width); i++) {
-            this.text[Math.min(this.lineCounter,this.hackTextHeight-1)][i] = string[i];
+        for (let i = 0; i < Math.min(string.length, this.width); i++) {
+            this.text[Math.min(this.lineCounter, this.hackTextHeight - 1)][i] = string[i];
         }
-        for (let i = Math.min(string.length,this.width); i < this.width; i++) {
-            this.text[Math.min(this.lineCounter,this.hackTextHeight-1)][i] = " ";
+        for (let i = Math.min(string.length, this.width); i < this.width; i++) {
+            this.text[Math.min(this.lineCounter, this.hackTextHeight - 1)][i] = " ";
         }
 
 
     }
 
-    getText(){
+    getText() {
         return this.text;
     }
 

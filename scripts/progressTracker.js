@@ -1,11 +1,11 @@
-export class ProgressTracker{
+export class ProgressTracker {
 
 
-    Start(highScore){
+    Start(highScore) {
 
     }
 
-    Update(score, highScore){
+    Update(score, highScore) {
 
     }
 
