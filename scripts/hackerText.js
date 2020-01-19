@@ -156,7 +156,7 @@ export class HackerText{
   }
 
   Start(startString) {
-      startString = startString || "Hello";
+      startString = startString || " ";
       console.log(startString);
       let start2DArr = this.stringTo2DCharArr(startString);
       this.lineCounter += start2DArr.length;

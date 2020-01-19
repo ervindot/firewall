@@ -10,7 +10,7 @@ export class gameObsctacle {
         //2 non-malicious : user packets (if blocked lose score because inconvenient)
         //3 spy-ware : follows player movement
 
-        let distribution = [0,0,0,0,1,2,2,3]
+        let distribution = [0,0,0,0,1,2,3]
         this.enemyType = distribution[Math.floor(Math.random()*distribution.length)];
 
         this.shapes = [
