@@ -4,7 +4,9 @@ export class HackerText{
     constructor(width,height){
         this.width = width;
         this.hackTextHeight = height - 10;
+        this.paneHeight = height;
         this.lineCounter = 0;
+        this.scorePos = 36;
         this.text = new Array(this.hackTextHeight);
         for(let i = 0; i < height; i++){
             this.text[i] = new Array(width);
@@ -115,6 +117,7 @@ export class HackerText{
                 this.text[i][j] = start2DArr[i][j];
             }
         }
+        this.insertTextFixed(`Score 0`, this.scorePos);
     }
 
     shiftUp(){
@@ -191,9 +194,28 @@ export class HackerText{
                 this.insertText(hack[i].substring(this.width, hack[i].length))
             }
         }
+        this.insertTextFixed(`Score ${score}`, this.scorePos);
     }
 
-    insertText(string){
+    insertTextFixed(string, line) {
+      //leave new line between old code and new code
+      if (this.lineCounter >= this.hackTextHeight - 1) {
+          this.shiftUp();
+      } else {
+          this.lineCounter++;
+      }
+
+      for (let i = 0; i < Math.min(string.length, this.width); i++) {
+          this.text[Math.min(line, this.paneHeight - 1)][i] = string[i];
+      }
+      for (let i = Math.min(string.length, this.width); i < this.width; i++) {
+          this.text[Math.min(line, this.paneHeight - 1)][i] = " ";
+      }
+
+
+  }
+
+    insertText(string) {
         //leave new line between old code and new code
         if(this.lineCounter >= this.hackTextHeight - 1) {
             this.shiftUp();
