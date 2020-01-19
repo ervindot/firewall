@@ -9,17 +9,19 @@ export class gameObsctacle {
         //1 trojan : moves straight down but looks non-malicious for most of the way
         //2 non-malicious : user packets (if blocked lose score because inconvenient)
         //3 spy-ware : follows player movement
-        this.enemyType = Math.floor(Math.random() * 4);
+
+        let distribution = [0,0,0,0,1,2,2,3]
+        this.enemyType = distribution[Math.floor(Math.random()*distribution.length)];
 
         this.shapes = [
-            [["\\", "~", "/"], ["/", "A", "\\"], ["|", " ", "|"], ["_", "^", "_"]],
-            [["\\", "~", "/"], ["/", "B", "\\"], ["|", " ", "|"], ["_", "^", "_"]],
+            [["\\", "~", "/"], ["/", "Ö", "\\"], ["|", " ", "|"]],
+            [["\\", "~", "/"], ["/", "æ", "\\"], ["|", " ", "|"]],
             this.stringTo2DCharArr(
                 ".--.\n" +
                 "| -- \\\n" +
                 "| -- |\n" +
                 "'----'"),
-            [["\\", "~", "/"], ["/", "D", "\\"], ["|", " ", "|"], ["_", "^", "_"]]
+            [["\\", " ", "/"], [" ", "X", " "], ["/", " ", "\\"]]
         ];
 
         this.shape = this.shapes[this.enemyType];
