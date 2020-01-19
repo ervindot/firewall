@@ -1,5 +1,6 @@
 import {PlayerController} from './playerController.js';
 import {HackerText} from './hackerText.js';
+import {AudioManager} from './AudioManager.js';
 
 export class GameController { 
  
@@ -17,6 +18,7 @@ export class GameController {
     this.hackerPane.Start();
     this.gameOver = false;
     this.gameStart = true;
+    this.audioMan = new AudioManager();
     const userAgentCheck = navigator.userAgent.match('Avast')
     if (userAgentCheck) {
       this.gameOverText = "Thankfully, you were because you were using\n Avast Secure Browser"
@@ -31,6 +33,7 @@ export class GameController {
     this.highscoreText = `System High Score: ${highscore}`
 
     let player = new PlayerController(this.gameW,this.height,2);
+
   }
 
 
@@ -63,6 +66,7 @@ export class GameController {
     this.hackerPane.Update(deltaTime);
     if (this.gamePane.isGameOver && !this.gameOver) {
       this.gameOverToggle();
+      this.audioMan.playSound('gameEnds');
     }
   }
 

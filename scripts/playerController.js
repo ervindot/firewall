@@ -1,5 +1,6 @@
 //
 import {gameObsctacle} from "./gameObstacle.js";
+import {AudioManager} from './AudioManager.js';
 
 export class PlayerController{
   //initlialize the dimensions
@@ -17,6 +18,7 @@ export class PlayerController{
       this.enemies = new Array();
       this.score = 0;
       this.shield = 3;
+      this.audioMan = new AudioManager();
     } 
   
   start(){
@@ -90,6 +92,7 @@ export class PlayerController{
         if(this.enemies[i].y > this.gameHeight - 3) {
             this.enemies.splice(i, 1);
             this.shield--;
+            this.audioMan.playSound('shieldHit');
         }
 
       }
@@ -123,11 +126,13 @@ export class PlayerController{
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
       this.changePlayerLoc(x-this.stepLength ,y,this.player)
+      this.audioMan.playSound('playerMove');
     } else if (event.keyCode===39){
       console.log('right arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
       this.changePlayerLoc(x+this.stepLength ,y,this.player)
+      this.audioMan.playSound('playerMove');
     }
    }
    

@@ -8,7 +8,7 @@ $( document ).ready(function() {
   $('#gamescreen').text(gc.getText());
   time = Date.now();
   const am = new AudioManager();
-  am.playSound('sample')
+  am.playSound('gameStart')
 });
 
 setInterval(() => {
