@@ -1,4 +1,4 @@
-import {Game} from './game.js';
+import {PlayerController} from './playerController.js';
 import {HackerText} from './hackerText.js';
 
 export class GameController { 
@@ -11,7 +11,7 @@ export class GameController {
     this.width = this.gameW + this.margin*4 + this.hackerW;
     this.gamePaneCoords = [this.margin, this.margin, this.gameW + this.margin, this.height - this.margin];
     this.hackerPaneCoords = [this.gamePaneCoords[2] + 2, this.margin, this.width - this.margin, this.height - this.margin];
-    this.gamePane = new Game(this.gameW, this.height - this.margin);
+    this.gamePane = new PlayerController(this.gameW, this.height - this.margin);
     this.gamePane.start();
     this.hackerPane = new HackerText(this.hackerW, this.height - this.margin);
     this.hackerPane.Start();
@@ -23,12 +23,14 @@ export class GameController {
     } else {
       this.gameOverText = "You could have been saved by Avast Secure Browser.\nIt provide features to stop malware, phishing scams,\n and identity theft. Download it now!\nhttps://www.avast.com/en-gb/secure-browser"
     }
-    const highscore = window.localStorage.getItem('highscore');
+    let highscore = window.localStorage.getItem('highscore');
     if (!highscore) {
       window.localStorage.setItem('highscore','10');
       highscore = '10'
     }
     this.highscoreText = `System High Score: ${highscore}`
+
+    let player = new PlayerController(this.gameW,this.height,2);
   }
 
 
@@ -43,12 +45,12 @@ export class GameController {
           $("#startmenu").show();
           this.gameStart = true;
         } 
-        this.reset()
+        this.reset();
         this.gameOverToggle();
         return;
       }
       if (this.gameStart) {
-        $("#startmenu").hide()
+        $("#startmenu").hide();
         this.gameStart = false;
       }
     });
@@ -96,7 +98,7 @@ export class GameController {
         }
         rowString += ' '
       }
-      rowString += '\n'
+      rowString += '\n';
       outputString += rowString
     }
     return outputString;

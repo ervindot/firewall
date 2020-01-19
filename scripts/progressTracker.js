@@ -1,7 +1,7 @@
 export class ProgressTracker{
 
 
-    Start(){
+    Start(highScore){
 
     }
 

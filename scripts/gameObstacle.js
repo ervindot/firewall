@@ -1,10 +1,12 @@
 export class gameObsctacle{
-constructor(gameWidth,gameHeight){
+constructor(gameWidth,gameHeight,shape){
+    this.shape = shape;
     this.stepLength = 9;
-    let temp =getRandomInt(1,this.stepLength-1)
+    let temp = this.getRandomInt(1,this.stepLength-1)
     this.x = temp * this.stepLength;
-    this.y = getRandomInt(0, gameHeight/2);
-    this.moveTime=10;
+    this.y = 0;
+    this.totalTime = 0;
+    this.moveTime=5000;
 }
 
  getRandomInt(min, max) {
