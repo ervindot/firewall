@@ -1,5 +1,6 @@
 //
 import {gameObsctacle} from "./gameObstacle.js";
+import {AudioManager} from './AudioManager.js';
 
 export class PlayerController{
   //initlialize the dimensions
@@ -21,7 +22,10 @@ export class PlayerController{
       this.enemies = new Array();
       this.score = 0;
       this.shield = 3;
-    }
+
+
+      this.audioMan = new AudioManager();
+}
     stringToCharArr(string){
         return Array.from(string);
     }
@@ -31,6 +35,7 @@ export class PlayerController{
         console.log(x);
         return (x.split(/\r?\n/)).map(this.stringToCharArr);
     }
+
 
   start(){
       this.gameScreen = new Array(this.gameHeight);
@@ -99,6 +104,7 @@ export class PlayerController{
         if(this.enemies[i].y > this.gameHeight - 3) {
             this.enemies.splice(i, 1);
             this.shield--;
+            this.audioMan.playSound('shieldHit');
         }
 
       }
@@ -132,11 +138,15 @@ export class PlayerController{
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
       this.changePlayerLoc(x-this.stepLength ,y,this.playerShape)
+      this.changePlayerLoc(x-this.stepLength ,y,this.player)
+      this.audioMan.playSound('playerMove');
     } else if (event.keyCode===39){
       console.log('right arrow');
       let x = this.playerLoc['xcor']
       let y = this.playerLoc['ycor']
       this.changePlayerLoc(x+this.stepLength ,y,this.playerShape)
+      this.changePlayerLoc(x+this.stepLength ,y,this.player)
+      this.audioMan.playSound('playerMove');
     }
    }
    
@@ -154,29 +164,3 @@ export class PlayerController{
    }
 
 }
-
-
-
-
-// export class PlayerController {
-//   constructor(w, h) {
-//     console.log(w, h);
-//     this.gamescreen = []
-//     this.height = h;
-//     this.width = w;
-//   }
-
-//   start() {
-//     for (let i = 0; i < this.height; i++) {
-//       let temp = []
-//       for (let j = 0; j < this.width; j++) {
-//         temp.push('g'.toString());
-//       }
-//       this.gamescreen.push(temp);
-//     }
-//   }
-
-//   getText() {
-//     return this.gamescreen;
-//   }
-// }
