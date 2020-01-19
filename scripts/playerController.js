@@ -155,6 +155,9 @@ export class PlayerController {
 
     spawnEnemies() {
         let maxEnemyCount = 5;
+        if(this.score > 30){
+          maxEnemyCount = 7;
+        }
         //four obstacle types:
         //generic : moves straight down
         //trojan : moves straight down but looks non-malicious for most of the way
