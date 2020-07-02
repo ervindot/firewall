@@ -1,7 +1,7 @@
 # firewall
 
-Why using a game engine when you have text? Firewall is a tiny browser game in which the user has to block 
-incoming viruses to protect the users computer. We built our own system for rendering text on the screen which works most of the time.
+Why use a game engine when you have text? Firewall is a tiny browser game in which the user has to block 
+incoming viruses to protect the user's computer. We built our own system for rendering text on the screen, which works most of the time.
 
 Other features include:
 * Hacker text to immerse you in the experience
